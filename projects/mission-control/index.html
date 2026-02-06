@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mission Control</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #0a0a0a; color: #fff; }
+        .container { max-width: 1400px; margin: 0 auto; padding: 20px; }
+        h1 { font-size: 28px; margin-bottom: 20px; color: #00ff88; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .card { background: #1a1a1a; border-radius: 12px; padding: 20px; border: 1px solid #333; }
+        .card h2 { font-size: 18px; margin-bottom: 15px; color: #888; }
+        .activity-item { padding: 10px; border-bottom: 1px solid #333; font-size: 14px; }
+        .activity-item:last-child { border-bottom: none; }
+        .timestamp { color: #666; font-size: 12px; }
+        .search-box { width: 100%; padding: 12px; background: #222; border: 1px solid #444; border-radius: 8px; color: #fff; font-size: 16px; margin-bottom: 15px; }
+        .search-box:focus { outline: none; border-color: #00ff88; }
+        .task-item { padding: 10px; background: #222; margin-bottom: 8px; border-radius: 6px; font-size: 14px; }
+        .next-run { color: #00ff88; font-size: 12px; }
+        .status { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; }
+        .status.completed { background: #0f3d2e; color: #00ff88; }
+        .status.running { background: #3d2e0f; color: #ffaa00; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🦞 Mission Control</h1>
+        
+        <div class="grid">
+            <!-- Activity Feed -->
+            <div class="card">
+                <h2>📊 Activity Feed</h2>
+                <div id="activity-feed">
+                    <div class="activity-item">
+                        <span class="timestamp">Loading...</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Calendar -->
+            <div class="card">
+                <h2>📅 Scheduled Tasks</h2>
+                <div id="calendar">
+                    <div class="task-item">Loading...</div>
+                </div>
+            </div>
+            
+            <!-- Global Search -->
+            <div class="card" style="grid-column: 1 / -1;">
+                <h2>🔍 Global Search</h2>
+                <input type="text" class="search-box" id="search-input" placeholder="Search memories, tasks, docs...">
+                <div id="search-results"></div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // Load activity feed
+        async function loadActivity() {
+            try {
+                const response = await fetch('/api/activity');
+                const data = await response.json();
+                const feed = document.getElementById('activity-feed');
+                feed.innerHTML = data.slice(-10).reverse().map(item => `
+                    <div class="activity-item">
+                        <span class="status ${item.status}">${item.status}</span>
+                        <span class="timestamp">${new Date(item.timestamp).toLocaleString()}</span>
+                        <div>${item.type}: ${item.details}</div>
+                    </div>
+                `).join('');
+            } catch(e) {
+                document.getElementById('activity-feed').innerHTML = '<div class="activity-item">Activity feed not available</div>';
+            }
+        }
+        
+        // Load calendar
+        async function loadCalendar() {
+            try {
+                const response = await fetch('/api/calendar');
+                const data = await response.json();
+                const cal = document.getElementById('calendar');
+                cal.innerHTML = data.map(task => `
+                    <div class="task-item">
+                        <div>${task.schedule}</div>
+                        <div class="next-run">Next: ${new Date(task.next_run).toLocaleString()}</div>
+                    </div>
+                `).join('');
+            } catch(e) {
+                document.getElementById('calendar').innerHTML = '<div class="task-item">Calendar not available</div>';
+            }
+        }
+        
+        // Search
+        document.getElementById('search-input').addEventListener('input', async (e) => {
+            const query = e.target.value;
+            if (query.length < 2) return;
+            
+            try {
+                const response = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
+                const data = await response.json();
+                const results = document.getElementById('search-results');
+                results.innerHTML = data.slice(0, 5).map(r => `
+                    <div class="activity-item">
+                        <strong>${r.file}</strong>
+                        <div>${r.context.substring(0, 100)}...</div>
+                    </div>
+                `).join('');
+            } catch(e) {
+                console.error('Search failed', e);
+            }
+        });
+        
+        // Initial load
+        loadActivity();
+        loadCalendar();
+        setInterval(loadActivity, 30000); // Refresh every 30s
+    </script>
+</body>
+</html>
