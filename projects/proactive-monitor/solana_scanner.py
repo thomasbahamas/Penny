@@ -8,7 +8,7 @@ from urllib.parse import urljoin
 
 # Keywords to track
 KEYWORDS = {
-    "high": ["firedancer", "depin", "rwa", "tokenization", "stablecoin", "launch", "partnership"],
+    "high": ["x402", "alpenglow", "bam", "jito", "depin", "rwa", "tokenization", "stablecoin", "launch", "partnership"],
     "medium": ["x spaces", "twitter space", "ama", "ecosystem", "grant", "hackathon"],
     "projects": ["jupiter", "jito", "drift", "marginfi", "kamino", "solend", "orca", "raydium", "meteora"]
 }
