@@ -1,0 +1,28 @@
+{
+  "model_routing": {
+    "enabled": true,
+    "strategy": "complexity_based",
+    "routes": {
+      "simple": {
+        "model": "openrouter/moonshotai/kimi-k2.5",
+        "max_complexity": 30,
+        "keywords": ["status", "hello", "help", "what is", "how to", "when", "where"]
+      },
+      "coding": {
+        "model": "openai/gpt-5.3-codex",
+        "complexity_range": [30, 60],
+        "keywords": ["build", "code", "script", "implement", "deploy", "create"]
+      },
+      "complex": {
+        "model": "anthropic/claude-opus-4-5",
+        "complexity_range": [60, 80],
+        "keywords": ["analyze", "legal", "contract", "strategy", "architecture"]
+      },
+      "emergency": {
+        "model": "anthropic/claude-opus-4-6",
+        "min_complexity": 80,
+        "keywords": ["stuck", "broken", "error", "failed", "debug"]
+      }
+    }
+  }
+}
