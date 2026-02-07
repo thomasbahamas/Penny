@@ -14,7 +14,8 @@ def log_usage(model, input_tokens, output_tokens, task_type="general"):
     costs = {
         "openrouter/moonshotai/kimi-k2.5": {"input": 1.00, "output": 3.00},
         "anthropic/claude-opus-4-5": {"input": 15.00, "output": 75.00},
-        "anthropic/claude-opus-4-6": {"input": 18.00, "output": 90.00}
+        "anthropic/claude-opus-4-6": {"input": 18.00, "output": 90.00},
+        "openai/gpt-5.3-codex": {"input": 3.00, "output": 12.00}
     }
     
     cost_per_m = costs.get(model, costs["openrouter/moonshotai/kimi-k2.5"])
