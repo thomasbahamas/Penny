@@ -37,14 +37,30 @@
       },
       "context_window": 200000,
       "use_when": "When other models fail, complex debugging, novel problems"
+    },
+    "openai/gpt-5.3-codex": {
+      "name": "GPT-5.3 Codex",
+      "purpose": "Building, coding, architecture, implementation",
+      "cost_per_1m_tokens": {
+        "input": 3.00,
+        "output": 12.00
+      },
+      "context_window": 200000,
+      "use_when": "Writing code, building features, technical implementation"
     }
   },
   
   "usage_rules": {
     "default": "openrouter/moonshotai/kimi-k2.5",
+    "general_chat": "openrouter/moonshotai/kimi-k2.5",
     "legal_tasks": "anthropic/claude-opus-4-5",
     "complex_analysis": "anthropic/claude-opus-4-5",
+    "deep_reasoning": "anthropic/claude-opus-4-5",
+    "building": "openai/gpt-5.3-codex",
+    "coding": "openai/gpt-5.3-codex",
+    "implementation": "openai/gpt-5.3-codex",
     "troubleshooting": "anthropic/claude-opus-4-6",
+    "debugging": "anthropic/claude-opus-4-6",
     "fallback": "openrouter/moonshotai/kimi-k2.5"
   },
   
