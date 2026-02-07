@@ -71,6 +71,37 @@ Reply with your todo list and I'll organize it!
 output = "\n".join(BRIEFING)
 print(output)
 
-# Save to file for Telegram bot to pick up
+# Save to file
 with open('/tmp/morning_briefing.txt', 'w') as f:
     f.write(output)
+
+# Send to Telegram
+import os
+import requests
+
+TELEGRAM_BOT_TOKEN = "8508655681:AAEQsNFa29qI0ad5kizbNBqHxhBTn7DEgHQ"
+TELEGRAM_CHAT_ID = "1123064049"  # Thomas's ID
+
+def send_telegram_message(text):
+    """Send message to Telegram"""
+    try:
+        # Split long messages
+        max_length = 4000
+        chunks = [text[i:i+max_length] for i in range(0, len(text), max_length)]
+        
+        for chunk in chunks:
+            url = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
+            data = {
+                "chat_id": TELEGRAM_CHAT_ID,
+                "text": chunk,
+                "parse_mode": "HTML"
+            }
+            resp = requests.post(url, json=data, timeout=10)
+            if not resp.json().get("ok"):
+                print(f"Telegram error: {resp.json()}")
+    except Exception as e:
+        print(f"Failed to send Telegram: {e}")
+
+# Send the briefing
+send_telegram_message(output.replace('=', '━').replace('📌', '▸'))
+print("\n📤 Briefing sent to Telegram!")
