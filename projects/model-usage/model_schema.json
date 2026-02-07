@@ -1,0 +1,65 @@
+{
+  "schema_version": "1.0",
+  "description": "Model usage and cost tracking for OpenClaw",
+  "last_updated": "2026-02-07",
+  
+  "models": {
+    "openrouter/moonshotai/kimi-k2.5": {
+      "name": "Kimi K2.5",
+      "purpose": "General chat, fast responses",
+      "cost_per_1m_tokens": {
+        "input": 1.00,
+        "output": 3.00,
+        "cache_read": 0.50,
+        "cache_write": 1.00
+      },
+      "context_window": 256000,
+      "use_when": "Default for most tasks, parallel subagents"
+    },
+    
+    "anthropic/claude-opus-4-5": {
+      "name": "Claude Opus 4.5",
+      "purpose": "Legal analysis, deep reasoning, complex tasks",
+      "cost_per_1m_tokens": {
+        "input": 15.00,
+        "output": 75.00
+      },
+      "context_window": 200000,
+      "use_when": "Legal docs, complex analysis, coding architecture"
+    },
+    
+    "anthropic/claude-opus-4-6": {
+      "name": "Claude Opus 4.6",
+      "purpose": "Troubleshooting, debugging, edge cases",
+      "cost_per_1m_tokens": {
+        "input": 18.00,
+        "output": 90.00
+      },
+      "context_window": 200000,
+      "use_when": "When other models fail, complex debugging, novel problems"
+    }
+  },
+  
+  "usage_rules": {
+    "default": "openrouter/moonshotai/kimi-k2.5",
+    "legal_tasks": "anthropic/claude-opus-4-5",
+    "complex_analysis": "anthropic/claude-opus-4-5",
+    "troubleshooting": "anthropic/claude-opus-4-6",
+    "fallback": "openrouter/moonshotai/kimi-k2.5"
+  },
+  
+  "cost_optimization": {
+    "max_daily_spend_usd": 50.00,
+    "alert_threshold": 40.00,
+    "cheap_model_threshold": "Use Kimi for <2000 token tasks",
+    "cache_enabled": true,
+    "prompt_caching": true
+  },
+  
+  "logging": {
+    "track_every_request": true,
+    "log_location": "/root/clawd/mission-control/token_usage.jsonl",
+    "daily_reports": true,
+    "weekly_summary": true
+  }
+}
