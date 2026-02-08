@@ -1,0 +1,14 @@
+{
+  "title": "BTC RSI Oversold - Strong Buy Signal",
+  "content": "Bitcoin RSI has dropped to 28, indicating extreme oversold conditions. This is the third most oversold reading in BTC history. Previous instances (2018 bear bottom, March 2020 COVID crash) saw violent upside moves. Combined with $1B in liquidations and record ETF options activity, this could mark a local bottom. Not financial advice.",
+  "data": {
+    "price": 69177,
+    "rsi": 28,
+    "liquidations_24h": "1B",
+    "etf_options_volume": "record",
+    "signal": "strong_buy"
+  },
+  "priority": 9,
+  "content_type": "trading_signal",
+  "source": "trading-signals"
+}
