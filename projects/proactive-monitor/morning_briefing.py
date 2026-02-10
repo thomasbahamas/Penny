@@ -78,9 +78,14 @@ with open('/tmp/morning_briefing.txt', 'w') as f:
 # Send to Telegram
 import os
 import requests
+import os
 
-TELEGRAM_BOT_TOKEN = "8508655681:AAEQsNFa29qI0ad5kizbNBqHxhBTn7DEgHQ"
-TELEGRAM_CHAT_ID = "1123064049"  # Thomas's ID
+TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN", "")
+TELEGRAM_CHAT_ID = os.environ.get("TELEGRAM_CHAT_ID", "1123064049")  # Thomas's ID
+
+if not TELEGRAM_BOT_TOKEN:
+    print("⚠️  TELEGRAM_BOT_TOKEN not set - skipping Telegram send")
+    TELEGRAM_BOT_TOKEN = "dummy_token_for_testing"
 
 def send_telegram_message(text):
     """Send message to Telegram"""

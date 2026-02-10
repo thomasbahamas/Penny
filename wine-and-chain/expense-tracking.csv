@@ -1,0 +1,41 @@
+Wine and Chain - Expense Tracking Template
+Tor4 LLC DBA | Tax Year: 2025
+
+=== INSTRUCTIONS ===
+1. Log EVERY expense related to Wine and Chain
+2. Categorize correctly for tax deductions
+3. Keep receipts (photo/upload to folder)
+4. Note which episode/content each expense relates to
+5. Review monthly with your CPA
+
+=== CATEGORIES (Tax Deductible) ===
+EQUIPMENT - Microphones, cameras, lighting, stands, laptops
+SOFTWARE - Riverside, Descript, hosting, editing tools, subscriptions
+WINE PURCHASES - Bottles for on-air tasting (log episode #)
+TRAVEL - Vineyard visits, crypto conferences, mileage, hotels, flights
+MEALS - Content planning sessions with Jill (50% deductible, note what discussed)
+MARKETING - Ads, graphics, website, domain, business cards
+INSURANCE - Media liability, E&O coverage
+PROFESSIONAL SERVICES - CPA, lawyer, editor (if outsourced)
+
+=== EXPENSE LOG ===
+Date,Vendor,Description,Category,Amount,Episode/Content,Receipt,Notes
+2025-02-08,Example,Wine for pilot tasting,WINE PURCHASES,45.00,Pilot Episode,Y,2019 Cambria Pinot Noir - Episode 1
+2025-02-08,Riverside,Podcast hosting subscription,SOFTWARE,29.00,All Episodes,Y,Monthly - auto-renew
+2025-02-08,Namecheap,wineandchain.com domain,SOFTWARE,12.00,Brand Setup,Y,Annual renewal
+
+=== CONTENT TRIP LOG (Tax Documentation) ===
+Trip Date,Destination,Purpose,Episodes Produced,Miles Driven,Hotel,Meals,Other Costs,Total,Notes
+2025-03-15,Cambria Vineyards,Interview Jill's team + film content,"Episode 3,4",180,0,85.00,45.00,130.00,Met with winemaker about blockchain traceability
+
+=== WINE INVENTORY (Production Expense Log) ===
+Bottle ID,Wine,Producer,Purchase Date,Cost,Episode Used,Tasting Notes,Remaining
+001,2019 Pinot Noir,Cambria,2025-02-08,45.00,Pilot,"Bright cherry, earthy, perfect intro wine",0.5 bottle
+
+=== MONTHLY SUMMARY ===
+Month,Equipment,Software,Wine,Travel,Meals,Marketing,Insurance,Professional,Total
+February 2025,0,41.00,45.00,0,0,12.00,0,0,98.00
+
+=== CPA REVIEW NOTES ===
+Date,Reviewer,Notes,Action Items
+2025-02-28,CPA Name,Reviewed Q1 expenses,Confirm home office percentage for deduction
