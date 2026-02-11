@@ -10,6 +10,7 @@ ENDPOINTS = {
     'health': 'https://skrmaxin.com/api/health',
     'stats': 'https://skrmaxin.com/api/stats',
     'recent_users': 'https://skrmaxin.com/api/users/recent',
+    'homepage': 'https://skrmaxin.com',
 }
 
 ALERT_THRESHOLD = {
