@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penny Mission Control</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        :root { --neon: #00f0ff; --accent: #ff6b35; --bg: #0a0a0f; --card: #12121a; }
+        body { background: var(--bg); color: #e0e0e0; font-family: 'SF Mono', monospace; }
+        .neon { color: var(--neon); text-shadow: 0 0 10px var(--neon); }
+        .accent { color: var(--accent); }
+        .card { background: var(--card); border: 1px solid #222; border-radius: 12px; }
+        .card:hover { border-color: var(--neon); transition: 0.3s; }
+        .status-dot { width: 8px; height: 8px; border-radius: 50%; display: inline-block; }
+        .status-active { background: #22c55e; box-shadow: 0 0 8px #22c55e; }
+        .status-pending { background: #f59e0b; box-shadow: 0 0 8px #f59e0b; }
+        .status-blocked { background: #ef4444; box-shadow: 0 0 8px #ef4444; }
+        .scroll-container { max-height: 400px; overflow-y: auto; }
+        .scroll-container::-webkit-scrollbar { width: 6px; }
+        .scroll-container::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+        .tag { font-size: 10px; padding: 2px 8px; border-radius: 4px; background: #1a1a2e; }
+    </style>
+</head>
+<body class="min-h-screen p-6">
+    <!-- Header -->
+    <header class="mb-8 flex items-center justify-between">
+        <div>
+            <h1 class="text-3xl font-bold neon">🪙 PENNY MISSION CONTROL</h1>
+            <p class="text-sm text-gray-500 mt-1">Last updated: <span id="last-updated">--</span></p>
+        </div>
+        <div class="flex gap-4">
+            <button onclick="refreshData()" class="px-4 py-2 bg-blue-600 hover:bg-blue-500 rounded-lg text-sm transition">
+                🔄 Refresh
+            </button>
+            <button onclick="openAddTask()" class="px-4 py-2 bg-green-600 hover:bg-green-500 rounded-lg text-sm transition">
+                + Add Task
+            </button>
+        </div>
+    </header>
+
+    <!-- Stats Row -->
+    <div class="grid grid-cols-4 gap-4 mb-6">
+        <div class="card p-4">
+            <div class="text-gray-400 text-xs">Active Projects</div>
+            <div class="text-2xl font-bold neon" id="active-count">0</div>
+        </div>
+        <div class="card p-4">
+            <div class="text-gray-400 text-xs">Incomplete Tasks</div>
+            <div class="text-2xl font-bold accent" id="incomplete-count">0</div>
+        </div>
+        <div class="card p-4">
+            <div class="text-gray-400 text-xs">Blocked Items</div>
+            <div class="text-2xl font-bold text-red-400" id="blocked-count">0</div>
+        </div>
+        <div class="card p-4">
+            <div class="text-gray-400 text-xs">Completed Today</div>
+            <div class="text-2xl font-bold text-green-400" id="completed-count">0</div>
+        </div>
+    </div>
+
+    <!-- Main Grid -->
+    <div class="grid grid-cols-3 gap-6">
+        
+        <!-- Incomplete Column -->
+        <div class="card p-4">
+            <h2 class="font-bold text-lg mb-4 accent">🚧 INCOMPLETE</h2>
+            <div class="scroll-container space-y-3" id="incomplete-list">
+                <div class="text-gray-500 text-sm">Loading...</div>
+            </div>
+        </div>
+
+        <!-- Active Projects -->
+        <div class="card p-4">
+            <h2 class="font-bold text-lg mb-4 neon">⚡ ACTIVE PROJECTS</h2>
+            <div class="scroll-container space-y-3" id="active-list">
+                <div class="text-gray-500 text-sm">Loading...</div>
+            </div>
+        </div>
+
+        <!-- Blocked & Notes -->
+        <div class="card p-4">
+            <h2 class="font-bold text-lg mb-4 text-red-400">🔴 BLOCKED / NOTES</h2>
+            <div class="scroll-container space-y-3" id="blocked-list">
+                <div class="text-gray-500 text-sm">Loading...</div>
+            </div>
+            <div class="mt-4 pt-4 border-t border-gray-800">
+                <h3 class="text-xs text-gray-500 mb-2">QUICK NOTES</h3>
+                <textarea id="quick-notes" class="w-full h-24 bg-black border border-gray-700 rounded p-2 text-xs text-gray-300" placeholder="Type notes here..."></textarea>
+                <button onclick="saveNotes()" class="mt-2 w-full py-1 bg-gray-700 hover:bg-gray-600 rounded text-xs">Save Note</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="card p-4 mt-6">
+        <h2 class="font-bold text-lg mb-4">📅 RECENT ACTIVITY</h2>
+        <div class="grid grid-cols-2 gap-4">
+            <div>
+                <h3 class="text-xs text-gray-500 mb-2">TODAY'S MEMORY</h3>
+                <div id="today-memory" class="text-sm text-gray-400 max-h-32 overflow-y-auto"></div>
+            </div>
+            <div>
+                <h3 class="text-xs text-gray-500 mb-2">GIT ACTIVITY</h3>
+                <div id="git-activity" class="text-sm text-gray-400 font-mono max-h-32 overflow-y-auto"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let currentData = { incomplete: [], active: [], blocked: [], notes: '', gitActivity: [] };
+
+        async function fetchData() {
+            try {
+                const res = await fetch('/api/data');
+                currentData = await res.json();
+                render();
+            } catch (e) {
+                console.error('Failed to fetch:', e);
+                // Fallback to sample data
+                currentData = {
+                    incomplete: [
+                        { title: "Context Retention System", desc: "FAISS + hourly summarizer", status: "active" },
+                        { title: "SKRmaxi.com", desc: "Landing page + Telegram alerts", status: "active" },
+                        { title: "Meme Coin Group", desc: "Multi-agent chat analysis", status: "pending" },
+                    ],
+                    active: [
+                        { title: "SolanaFloor Content", desc: "Daily briefings + signals", last: "2h ago" },
+                        { title: "Mission Control Dashboard", desc: "This dashboard", last: "now" },
+                    ],
+                    blocked: [
+                        { title: "Grok Provider", desc: "XAI_API_KEY needed from x.ai/api", workaround: "Use Kimi for now" },
+                        { title: "Python FAISS deps", desc: "Apt install taking long", workaround: "Use SQLite + simple search" },
+                    ],
+                    notes: "SKRMaxi is NOT a token site. It's the Seeker phone optimizer app.",
+                    gitActivity: []
+                };
+                render();
+            }
+        }
+
+        function render() {
+            document.getElementById('last-updated').textContent = new Date().toLocaleString();
+            document.getElementById('active-count').textContent = currentData.active.length;
+            document.getElementById('incomplete-count').textContent = currentData.incomplete.length;
+            document.getElementById('blocked-count').textContent = currentData.blocked.length;
+            document.getElementById('completed-count').textContent = '2';
+
+            // Render incomplete
+            document.getElementById('incomplete-list').innerHTML = currentData.incomplete.length 
+                ? currentData.incomplete.map(item => `
+                    <div class="p-3 bg-black/30 rounded border-l-2 ${item.status === 'active' ? 'border-green-500' : 'border-yellow-500'}">
+                        <div class="flex justify-between items-start">
+                            <span class="font-medium text-sm">${item.title}</span>
+                            <span class="tag ${item.status === 'active' ? 'text-green-400' : 'text-yellow-400'}">${item.status}</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">${item.desc}</p>
+                    </div>
+                `).join('')
+                : '<div class="text-gray-500 text-sm">No incomplete tasks</div>';
+
+            // Render active
+            document.getElementById('active-list').innerHTML = currentData.active.length
+                ? currentData.active.map(item => `
+                    <div class="p-3 bg-black/30 rounded border-l-2 border-cyan-500">
+                        <div class="flex justify-between items-start">
+                            <span class="font-medium text-sm">${item.title}</span>
+                            <span class="tag text-cyan-400">${item.last || 'active'}</span>
+                        </div>
+                        <p class="text-xs text-gray-500 mt-1">${item.desc}</p>
+                    </div>
+                `).join('')
+                : '<div class="text-gray-500 text-sm">No active projects</div>';
+
+            // Render blocked
+            document.getElementById('blocked-list').innerHTML = currentData.blocked.length
+                ? currentData.blocked.map(item => `
+                    <div class="p-3 bg-black/30 rounded border-l-2 border-red-500">
+                        <div class="font-medium text-sm text-red-300">${item.title}</div>
+                        <p class="text-xs text-gray-500 mt-1">${item.desc}</p>
+                        ${item.workaround ? `<p class="text-xs text-green-400 mt-1">💡 ${item.workaround}</p>` : ''}
+                    </div>
+                `).join('')
+                : '<div class="text-gray-500 text-sm">No blocked items</div>';
+
+            // Update notes and git
+            document.getElementById('quick-notes').value = currentData.notes || '';
+            document.getElementById('today-memory').textContent = currentData.notes?.substring(0, 200) || 'No notes';
+            document.getElementById('git-activity').innerHTML = currentData.gitActivity
+                ?.slice(0, 5).map(g => `<div>${g}</div>`).join('') || 'No git activity';
+        }
+
+        async function refreshData() {
+            await fetchData();
+        }
+
+        function saveNotes() {
+            currentData.notes = document.getElementById('quick-notes').value;
+            alert('Notes saved! (In real version, writes to memory file)');
+        }
+
+        function openAddTask() {
+            const title = prompt('Task title:');
+            if (title) {
+                currentData.incomplete.push({
+                    title,
+                    desc: 'New task',
+                    status: 'pending'
+                });
+                render();
+            }
+        }
+
+        // Initial fetch
+        fetchData();
+        
+        // Auto-refresh every 60 seconds
+        setInterval(fetchData, 60000);
+    </script>
+</body>
+</html>
