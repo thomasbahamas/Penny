@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-"""Morning briefing - 5:30 AM PST daily digest"""
+"""Morning briefing - 7:00 AM PST daily digest"""
 import subprocess
 import json
+import os
 from datetime import datetime
 
 BRIEFING = []
@@ -24,9 +25,16 @@ def run_scanner(script_path):
     except:
         return "Scanner unavailable"
 
+# Weather fetch
+weather = subprocess.run(
+    ['curl', '-s', 'wttr.in/Los+Angeles?format=3'],
+    capture_output=True, text=True
+).stdout.strip() or "Weather unavailable"
+
 # Header
 BRIEFING.append("🌅 GOOD MORNING THOMAS")
-BRIEFING.append(f"📅 {datetime.now().strftime('%A, %B %d, %Y - 5:30 AM PST')}")
+BRIEFING.append(f"📅 {datetime.now().strftime('%A, %B %d, %Y - 7:00 AM PST')}")
+BRIEFING.append(f"🌤️  {weather}")
 BRIEFING.append("🤖 Your overnight briefing from Penny")
 
 # Trading Signals
@@ -49,30 +57,63 @@ add_section("📱 SKRMAXI MONITOR", skrmaxi)
 btc = run_scanner('/root/clawd/projects/proactive-monitor/btc_bottom.py')
 add_section("🪙 BITCOIN STATUS", btc)
 
+# Overnight Work Summary (from overnight agent runs)
+try:
+    # Check for overnight agent activity logs
+    overnight_log = '/tmp/overnight_work.log'
+    if os.path.exists(overnight_log):
+        with open(overnight_log, 'r') as f:
+            content = f.read()
+            if content.strip():
+                add_section("🌙 WHAT I BUILT WHILE YOU SLEPT", content[:1000])
+    else:
+        add_section("🌙 OVERNIGHT STATUS", "No overnight work recorded yet. First run tonight at 11pm!")
+except:
+    pass
+
 # Overnight Activity (from mission control log)
 try:
     with open('/root/clawd/mission-control/activity.jsonl', 'r') as f:
         lines = f.readlines()
         recent = [json.loads(l) for l in lines[-10:] if l.strip()]
         if recent:
-            activity_text = "Recent activity:\n"
+            activity_text = "System activity:\n"
             for item in recent[-5:]:
                 activity_text += f"  • {item['type']}: {item.get('details', 'Task completed')}\n"
-            add_section("🤖 OVERNIGHT ACTIVITY", activity_text)
+            add_section("⚙️ SYSTEM ACTIVITY", activity_text)
 except:
     pass
 
-# Today's Focus
+# Today's Focus - Pull from todo.md
+try:
+    with open('/root/clawd/tasks/todo.md', 'r') as f:
+        todo_content = f.read()
+        # Extract incomplete tasks
+        focus_items = []
+        in_progress = False
+        for line in todo_content.split('\n'):
+            if '## In Progress' in line:
+                in_progress = True
+            elif '## Backlog' in line or '## Completed' in line:
+                in_progress = False
+            elif in_progress and line.strip().startswith('- [ ]'):
+                task = line.replace('- [ ]', '').strip()
+                focus_items.append(task)
+        
+        if focus_items:
+            focus_text = "\n".join([f"{i+1}. {t}" for i, t in enumerate(focus_items[:5])])
+        else:
+            focus_text = "1. Review overnight work above\n2. Set today's priorities\n3. Check SKRmaxi dashboard"
+except:
+    focus_text = "1. Review overnight work above\n2. Set today's priorities\n3. Check SKRmaxi dashboard"
+
 BRIEFING.append("\n" + "="*60)
 BRIEFING.append("🎯 TODAY'S FOCUS")
 BRIEFING.append("="*60)
-BRIEFING.append("""
-1. Check tagged messages from EU/EC team
-2. Review any urgent trading signals above
-3. Tackle your #todo list (paste here when ready)
-4. Daily standup prep
+BRIEFING.append(f"""
+{focus_text}
 
-Reply with your todo list and I'll organize it!
+💡 Reply with what you want me to prioritize and I'll get to work!
 """)
 
 # Print final briefing
