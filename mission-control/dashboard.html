@@ -92,6 +92,35 @@
         </div>
     </div>
 
+    <!-- SKRmaxi Monitor -->
+    <div class="card p-4 mt-6 border-l-4 border-cyan-500">
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="font-bold text-lg neon">📱 SKRMAXI LIVE MONITOR</h2>
+            <span id="skrmaxi-status" class="text-xs">Checking...</span>
+        </div>
+        <div class="grid grid-cols-4 gap-4 mb-4">
+            <div class="bg-black/30 p-3 rounded">
+                <div class="text-xs text-gray-500">Site Status</div>
+                <div id="skrmaxi-site" class="text-lg font-bold">--</div>
+            </div>
+            <div class="bg-black/30 p-3 rounded">
+                <div class="text-xs text-gray-500">Active Users</div>
+                <div id="skrmaxi-users" class="text-lg font-bold text-cyan-400">--</div>
+            </div>
+            <div class="bg-black/30 p-3 rounded">
+                <div class="text-xs text-gray-500">Response Time</div>
+                <div id="skrmaxi-latency" class="text-lg font-bold">--</div>
+            </div>
+            <div class="bg-black/30 p-3 rounded">
+                <div class="text-xs text-gray-500">Last Alert</div>
+                <div id="skrmaxi-last-alert" class="text-xs text-gray-400">None</div>
+            </div>
+        </div>
+        <div id="skrmaxi-alerts" class="space-y-2 max-h-32 overflow-y-auto scroll-container">
+            <div class="text-xs text-gray-500">No alerts yet...</div>
+        </div>
+    </div>
+
     <!-- Recent Activity -->
     <div class="card p-4 mt-6">
         <h2 class="font-bold text-lg mb-4">📅 RECENT ACTIVITY</h2>
@@ -188,6 +217,55 @@
             document.getElementById('today-memory').textContent = currentData.notes?.substring(0, 200) || 'No notes';
             document.getElementById('git-activity').innerHTML = currentData.gitActivity
                 ?.slice(0, 5).map(g => `<div>${g}</div>`).join('') || 'No git activity';
+            
+            // Render SKRmaxi data
+            renderSkrmaxi();
+        }
+        
+        function renderSkrmaxi() {
+            if (!currentData.skrmaxi) {
+                document.getElementById('skrmaxi-status').textContent = 'No data yet';
+                return;
+            }
+            
+            const skr = currentData.skrmaxi;
+            const results = skr.results || [];
+            
+            // Overall status
+            const allUp = results.every(r => r.status === 'up');
+            document.getElementById('skrmaxi-status').innerHTML = allUp 
+                ? '<span class="text-green-400">● Online</span>' 
+                : '<span class="text-red-400">● Issues</span>';
+            
+            // Site status
+            const health = results.find(r => r.name === 'health');
+            document.getElementById('skrmaxi-site').innerHTML = health 
+                ? (health.status === 'up' ? '<span class="text-green-400">UP</span>' : '<span class="text-red-400">DOWN</span>')
+                : '<span class="text-gray-500">--</span>';
+            
+            // Users from stats
+            const stats = results.find(r => r.name === 'stats');
+            const users = stats?.data?.active_users || stats?.data?.total_wallets || '--';
+            document.getElementById('skrmaxi-users').textContent = users;
+            
+            // Latency
+            const avgLatency = results.filter(r => r.latency_ms).reduce((a, b) => a + b.latency_ms, 0) / results.filter(r => r.latency_ms).length || 0;
+            document.getElementById('skrmaxi-latency').innerHTML = avgLatency 
+                ? `<span class="${avgLatency < 1000 ? 'text-green-400' : avgLatency < 3000 ? 'text-yellow-400' : 'text-red-400'}">${Math.round(avgLatency)}ms</span>`
+                : '--';
+            
+            // Last check time
+            document.getElementById('skrmaxi-last-alert').textContent = new Date(skr.timestamp).toLocaleTimeString();
+            
+            // Alerts list
+            const issues = results.filter(r => r.status !== 'up');
+            document.getElementById('skrmaxi-alerts').innerHTML = issues.length
+                ? issues.map(i => `
+                    <div class="p-2 bg-red-900/20 rounded text-xs">
+                        <span class="text-red-400">🔴 ${i.name}:</span> ${i.error || i.status}
+                    </div>
+                `).join('')
+                : '<div class="text-xs text-green-400">✓ All systems operational</div>';
         }
 
         async function refreshData() {

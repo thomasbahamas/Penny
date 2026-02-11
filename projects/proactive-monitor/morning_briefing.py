@@ -37,6 +37,14 @@ add_section("🎯 TRADING SIGNALS", signals)
 solana = run_scanner('/root/clawd/projects/proactive-monitor/solana_scanner.py')
 add_section("🌊 SOLANA ECOSYSTEM", solana)
 
+# SolanaFloor Latest
+solanafloor = run_scanner('/root/clawd/projects/proactive-monitor/solanafloor_scraper.py')
+add_section("🏛️ SOLANAFLOOR INSIGHTS", solanafloor)
+
+# SKRmaxi Status Check
+skrmaxi = run_scanner('/root/clawd/projects/proactive-monitor/skrmaxi_monitor.py')
+add_section("📱 SKRMAXI MONITOR", skrmaxi)
+
 # BTC Bottom Check
 btc = run_scanner('/root/clawd/projects/proactive-monitor/btc_bottom.py')
 add_section("🪙 BITCOIN STATUS", btc)

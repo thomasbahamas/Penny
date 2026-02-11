@@ -90,6 +90,17 @@ function getDashboardData() {
         { title: 'Crypto Memo Birdeye', desc: 'Need API key for on-chain data', workaround: 'Use free DEX APIs temporarily' }
     );
     
+    // Read SKRmaxi monitor data
+    try {
+        const skrmaxiLog = fs.readFileSync('/root/clawd/mission-control/skrmaxi_monitor.jsonl', 'utf8');
+        const lines = skrmaxiLog.trim().split('\n').filter(Boolean);
+        if (lines.length > 0) {
+            data.skrmaxi = JSON.parse(lines[lines.length - 1]);
+        }
+    } catch (e) {
+        data.skrmaxi = null;
+    }
+    
     return data;
 }
 
