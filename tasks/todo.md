@@ -3,7 +3,9 @@
 ## In Progress
 - [ ] Crypto Memo Tool — needs Birdeye API key for full on-chain data
 - [ ] Price alerts system — pending decision from Thomas
-- [ ] SKRmaxi Treasury Fee — add small % fee on purchases to treasury wallet
+
+## Under Consideration
+- [ ] SKRmaxi Treasury Fee — add small % fee on purchases (pending design)
 
 ## Backlog
 - [ ] Twitter → Telegram bridge for @solanafloor (exploring Typefully integration)
