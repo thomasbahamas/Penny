@@ -345,3 +345,5 @@
 {"timestamp": "2026-02-12T17:35:01.669248", "results": [{"name": "homepage", "status": "up", "status_code": 200, "latency_ms": 201.69, "timestamp": "2026-02-12T17:35:01.667224", "data": null}]}
 {"timestamp": "2026-02-12T17:40:02.568560", "results": [{"name": "homepage", "status": "up", "status_code": 200, "latency_ms": 206.66, "timestamp": "2026-02-12T17:40:02.563933", "data": null}]}
 {"timestamp": "2026-02-12T17:45:02.128906", "results": [{"name": "homepage", "status": "up", "status_code": 200, "latency_ms": 207.74, "timestamp": "2026-02-12T17:45:02.126915", "data": null}]}
+{"timestamp": "2026-02-12T17:50:03.025745", "results": [{"name": "homepage", "status": "up", "status_code": 200, "latency_ms": 404.84, "timestamp": "2026-02-12T17:50:03.022094", "data": null}]}
+{"timestamp": "2026-02-12T17:55:02.705172", "results": [{"name": "homepage", "status": "error", "error": "HTTPSConnectionPool(host='skrmaxin.com', port=443): Max retries exceeded with url: / (Caused by NewC", "timestamp": "2026-02-12T17:55:02.705135"}]}
