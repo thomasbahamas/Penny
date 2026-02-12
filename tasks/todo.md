@@ -1,21 +1,27 @@
 # Current Tasks
 
+## 🚨 URGENT
+- [ ] **SKRmaxi DOWN** — HTTP 406 errors for 24+ hours (see incident report)
+
 ## In Progress
 - [ ] Crypto Memo Tool — needs Birdeye API key for full on-chain data
 - [ ] Price alerts system — pending decision from Thomas
+- [ ] Context Retention System — Python deps incomplete, needs resume
 
 ## Under Consideration
 - [ ] SKRmaxi Treasury Fee — add small % fee on purchases (pending design)
+- [ ] Meme coin group chat — implementation pending priority call
 
 ## Backlog
 - [ ] Twitter → Telegram bridge for @solanafloor (exploring Typefully integration)
 - [ ] Add Claude auto-thesis to crypto memo tool
 - [ ] PDF/Notion export for memos
+- [ ] Grok integration — config errors need fixing
 
-## Content Pipeline
-- [ ] Thomas Cowan short — SolanaFloor video
-- [ ] x402 shorts — SolanaFloor video  
-- [ ] dat capitulation video — SolanaFloor video
+## Content Pipeline (Outlines Ready)
+- [ ] Thomas Cowan short — SolanaFloor video (outline drafted)
+- [ ] x402 shorts — SolanaFloor video (outline drafted)
+- [ ] dat capitulation video — SolanaFloor video (outline drafted)
 
 ## Completed
 - [x] 2026-01-31: Initial crypto memo tool (`/projects/crypto-memo/`)
