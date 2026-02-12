@@ -163,6 +163,20 @@ def build_telegram_message():
         emoji = "🟢" if change > 0 else "🔴"
         lines.append(f"{emoji} *SOL*: ${sol['price']:.2f} ({change:+.2f}%)\n")
     
+    # Get SolanaFloor news
+    try:
+        from solanafloor_scraper import fetch_solanafloor
+        solanafloor_news = fetch_solanafloor()
+        if solanafloor_news and "Could not fetch" not in solanafloor_news:
+            lines.append("🏛️ *SolanaFloor Headlines:*")
+            # Format for Telegram
+            for line in solanafloor_news.split('\n')[2:]:  # Skip header
+                if line.strip() and line[0].isdigit():
+                    lines.append(line.replace('.', '•', 1))
+            lines.append("")
+    except Exception as e:
+        print(f"SolanaFloor fetch error: {e}")
+    
     # Scan sources
     all_matches = {"high": set(), "medium": set(), "projects": set()}
     for name, url in SOURCES.items():
@@ -174,27 +188,21 @@ def build_telegram_message():
     
     # Key findings
     if all_matches["high"]:
-        lines.append("🔥 *HIGH PRIORITY:*")
+        lines.append("🔥 *Trending Topics:*")
         for k in sorted(all_matches["high"]):
             lines.append(f"  • {k.upper()}")
         lines.append("")
     
-    if all_matches["medium"]:
-        lines.append("📌 *MEDIUM PRIORITY:*")
-        for k in sorted(all_matches["medium"]):
-            lines.append(f"  • {k}")
-        lines.append("")
-    
     if all_matches["projects"]:
-        lines.append("🏗️ *PROJECTS MENTIONED:*")
-        for k in sorted(all_matches["projects"]):
-            lines.append(f"  • {k}")
+        lines.append("🏗️ *Projects in Focus:*")
+        for k in sorted(all_matches["projects"])[:5]:  # Limit to 5
+            lines.append(f"  • {k.title()}")
         lines.append("")
     
-    if not any(all_matches.values()):
-        lines.append("_No significant mentions found today._")
+    if not any(all_matches.values()) and "SolanaFloor" not in str(lines):
+        lines.append("📊 Monitoring market signals...")
     
-    lines.append("\n📰 *Sources scanned:* CoinDesk, TheBlock, Cointelegraph")
+    lines.append("\n📰 *Sources:* SolanaFloor, CoinDesk, TheBlock")
     return "\n".join(lines)
 
 if __name__ == "__main__":
