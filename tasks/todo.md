@@ -1,7 +1,7 @@
 # Current Tasks
 
 ## 🚨 URGENT
-- [ ] **SKRmaxi DOWN** — HTTP 406 errors for 24+ hours (see incident report)
+- [ ] **SKRmaxi Site** — Verify skrmaxing.com is fully operational (domain changed)
 
 ## In Progress
 - [ ] Crypto Memo Tool — needs Birdeye API key for full on-chain data
