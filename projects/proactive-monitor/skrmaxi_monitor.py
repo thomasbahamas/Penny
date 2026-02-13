@@ -5,7 +5,7 @@ import requests
 from datetime import datetime
 import os
 
-# SKRmaxi endpoints to monitor
+# SKRmaxing endpoints to monitor
 ENDPOINTS = {
     'homepage': 'https://skrmaxing.com',
     # API endpoints - add these to your backend when ready:

@@ -1,7 +1,13 @@
 # Current Tasks
 
-## 🚨 URGENT
-- [ ] **SKRmaxi Site** — Site down 48+ hours (HTTP 406). Cloudflare/config issue. Check server logs.
+## 🚨 URGENT - SKRmaxing Launch
+- [ ] **Final app build** from ClawSeeker repo
+- [ ] **3 screenshots** for dApp Store (phone dimensions)
+- [ ] **Feature graphic** (1024x500 banner)
+- [ ] **App icon** (512x512 PNG)
+- [ ] **dApp Store NFT** (~0.02 SOL fee)
+- [ ] **Privacy policy** page
+- [ ] **Submit to dApp Store**
 
 ## In Progress
 - [ ] Crypto Memo Tool — needs Birdeye API key for full on-chain data
