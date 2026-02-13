@@ -1,7 +1,7 @@
 # Current Tasks
 
 ## 🚨 URGENT
-- [ ] **SKRmaxi Site** — Verify skrmaxing.com is fully operational (domain changed)
+- [ ] **SKRmaxi Site** — Site down 48+ hours (HTTP 406). Cloudflare/config issue. Check server logs.
 
 ## In Progress
 - [ ] Crypto Memo Tool — needs Birdeye API key for full on-chain data

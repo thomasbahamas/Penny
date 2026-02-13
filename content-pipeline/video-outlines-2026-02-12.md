@@ -85,6 +85,39 @@
 
 ---
 
+## 4. "Solana RWA Institutional Takeover" (NEW — Fresh Research)
+
+### Working Title Options:
+- "Wall Street Is Moving to Solana (And Nobody's Talking About It)"
+- "The $1 Trillion Migration to Solana"
+- "Why BlackRock's Competitors Chose Solana"
+
+### Core Story:
+Institutional RWA (Real World Assets) issuers are choosing Solana over Ethereum:
+- **Matrixdock XAUm** — Asia's largest tokenized gold (Feb 2026)
+- **WisdomTree** — Full suite of regulated funds (Jan 2026)
+- **Ondo Global Markets** — 200+ tokenized stocks/ETFs (Jan 2026)
+- **Fireblocks integration** — Enterprise treasury infrastructure
+
+### Key Stats:
+- Solana settled $175B in USDT via Legacy Mesh
+- Sub-cent transaction costs
+- Sub-second finality
+
+### Suggested Structure (5-6 min):
+1. **Hook** (0:00-0:20): "The biggest financial migration in history is happening... and it's not on Ethereum"
+2. **The Evidence** (0:20-2:30): Roll call of institutional launches (Matrixdock, WisdomTree, Ondo)
+3. **Why Solana?** (2:30-4:00): Speed, cost, reliability — the technical case
+4. **What This Means** (4:00-5:00): Retail access to institutional-grade assets
+5. **The Play** (5:00-6:00): How to position (RWA tokens, SOL, ecosystem plays)
+
+### Data Sources:
+- solana.com/news (official announcements)
+- Ondo, WisdomTree, Matrixdock press releases
+- DeFiLlama RWA metrics
+
+---
+
 ## 🎬 Production Checklist
 
 For each video you greenlight:
