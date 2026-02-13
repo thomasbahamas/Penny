@@ -7,11 +7,11 @@ import os
 
 # SKRmaxi endpoints to monitor
 ENDPOINTS = {
-    'homepage': 'https://skrmaxin.com',
+    'homepage': 'https://skrmaxing.com',
     # API endpoints - add these to your backend when ready:
-    # 'health': 'https://skrmaxin.com/api/health',
-    # 'stats': 'https://skrmaxin.com/api/stats', 
-    # 'recent_users': 'https://skrmaxin.com/api/users/recent',
+    # 'health': 'https://skrmaxing.com/api/health',
+    # 'stats': 'https://skrmaxing.com/api/stats', 
+    # 'recent_users': 'https://skrmaxing.com/api/users/recent',
 }
 
 ALERT_THRESHOLD = {
