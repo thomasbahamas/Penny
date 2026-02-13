@@ -682,3 +682,5 @@
 {"timestamp": "2026-02-13T21:35:11.658679", "results": [{"name": "homepage", "status": "error", "error": "HTTPSConnectionPool(host='skrmaxing.com', port=443): Max retries exceeded with url: / (Caused by Con", "timestamp": "2026-02-13T21:35:11.658657"}]}
 {"timestamp": "2026-02-13T21:40:12.721644", "results": [{"name": "homepage", "status": "error", "error": "HTTPSConnectionPool(host='skrmaxing.com', port=443): Max retries exceeded with url: / (Caused by Con", "timestamp": "2026-02-13T21:40:12.721617"}]}
 {"timestamp": "2026-02-13T21:45:11.667809", "results": [{"name": "homepage", "status": "error", "error": "HTTPSConnectionPool(host='skrmaxing.com', port=443): Max retries exceeded with url: / (Caused by Con", "timestamp": "2026-02-13T21:45:11.667791"}]}
+{"timestamp": "2026-02-13T21:50:02.021593", "results": [{"name": "homepage", "status": "up", "status_code": 200, "latency_ms": 298.25, "timestamp": "2026-02-13T21:50:02.019396", "data": null}]}
+{"timestamp": "2026-02-13T21:55:01.712063", "results": [{"name": "homepage", "status": "up", "status_code": 200, "latency_ms": 225.11, "timestamp": "2026-02-13T21:55:01.710410", "data": null}]}
