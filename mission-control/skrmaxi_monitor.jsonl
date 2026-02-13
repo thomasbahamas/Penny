@@ -491,3 +491,5 @@
 {"timestamp": "2026-02-13T05:45:02.057499", "results": [{"name": "homepage", "status": "up", "status_code": 200, "latency_ms": 203.7, "timestamp": "2026-02-13T05:45:02.056160", "data": null}]}
 {"timestamp": "2026-02-13T05:50:02.850087", "results": [{"name": "homepage", "status": "up", "status_code": 200, "latency_ms": 311.67, "timestamp": "2026-02-13T05:50:02.841780", "data": null}]}
 {"timestamp": "2026-02-13T05:55:02.922852", "results": [{"name": "homepage", "status": "up", "status_code": 200, "latency_ms": 303.77, "timestamp": "2026-02-13T05:55:02.918899", "data": null}]}
+{"timestamp": "2026-02-13T06:00:12.228479", "results": [{"name": "homepage", "status": "error", "error": "HTTPSConnectionPool(host='skrmaxing.com', port=443): Max retries exceeded with url: / (Caused by Con", "timestamp": "2026-02-13T06:00:12.228461"}]}
+{"timestamp": "2026-02-13T06:05:11.695666", "results": [{"name": "homepage", "status": "error", "error": "HTTPSConnectionPool(host='skrmaxing.com', port=443): Max retries exceeded with url: / (Caused by Con", "timestamp": "2026-02-13T06:05:11.695644"}]}
