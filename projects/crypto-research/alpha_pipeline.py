@@ -207,8 +207,47 @@ Research priorities for today:
         
         return filename
 
+    def store_in_memory(self, brief_text: str, date_str: str):
+        """Store the brief in Qdrant memory"""
+        try:
+            sys.path.insert(0, '/root/clawd/projects/memory')
+            from penny_memory import PennyMemory
+            memory = PennyMemory()
+            
+            if memory.client:
+                memory.remember(
+                    f"Alpha Research Brief {date_str}: {brief_text[:500]}",
+                    {
+                        "type": "alpha_research",
+                        "date": date_str,
+                        "full_path": f"{self.reports_dir}/brief-{date_str}.md"
+                    }
+                )
+                print(f"✅ Stored in memory")
+        except Exception as e:
+            print(f"⚠️ Memory storage failed: {e}")
+    
+    def recall_relevant_research(self, query: str) -> list:
+        """Recall past research relevant to query"""
+        try:
+            sys.path.insert(0, '/root/clawd/projects/memory')
+            from penny_memory import PennyMemory
+            memory = PennyMemory()
+            
+            if memory.client:
+                results = memory.recall(query, limit=3)
+                return [r['text'] for r in results if r.get('metadata', {}).get('type') == 'alpha_research']
+            return []
+        except:
+            return []
+
 if __name__ == "__main__":
     researcher = AlphaResearcher()
     report_path = researcher.generate_daily_brief()
     print(f"✅ Research brief generated: {report_path}")
     print(f"\nRun: cat {report_path}")
+    
+    # Store in memory
+    with open(report_path) as f:
+        brief_content = f.read()
+    researcher.store_in_memory(brief_content, datetime.now().strftime("%Y-%m-%d"))
