@@ -293,13 +293,26 @@ button:active {
   padding: 12px;
   background: var(--card);
   border-top: 1px solid #222;
+  z-index: 1000;
 }
 
 .bottom-nav button {
-  font-size: 1.3rem;
-  padding: 8px 16px;
+  font-size: 1.5rem;
+  padding: 15px 25px;
   background: transparent;
   border: none;
+  cursor: pointer;
+  min-width: 60px;
+  min-height: 50px;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+}
+
+.bottom-nav button:active {
+  transform: scale(0.95);
+  background: rgba(0, 240, 255, 0.1);
+  border-radius: 12px;
 }
 
 .bottom-nav button.active {

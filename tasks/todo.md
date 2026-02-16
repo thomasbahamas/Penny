@@ -30,6 +30,8 @@
 - [ ] Thomas Cowan short — SolanaFloor video (outline drafted)
 - [ ] x402 shorts — SolanaFloor video (outline drafted)
 - [ ] dat capitulation video — SolanaFloor video (outline drafted)
+- [ ] **Hyperliquid vs Solana Perps** — Script ready for review (Wed)
+  - Draft complete, needs: Sheldon approval → Cowork scripting → Shoot
 
 ## Completed
 - [x] **2026-02-13**: SKRmaxing submitted to Solana Mobile dApp Store! ⭐
