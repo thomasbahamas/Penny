@@ -1428,3 +1428,5 @@
 {"timestamp": "2026-02-16T11:35:02.606313", "results": [{"name": "homepage", "status": "up", "status_code": 200, "latency_ms": 325.3, "timestamp": "2026-02-16T11:35:02.604053", "data": null}]}
 {"timestamp": "2026-02-16T11:40:02.793933", "results": [{"name": "homepage", "status": "up", "status_code": 200, "latency_ms": 415.4, "timestamp": "2026-02-16T11:40:02.784994", "data": null}]}
 {"timestamp": "2026-02-16T11:45:01.853115", "results": [{"name": "homepage", "status": "up", "status_code": 200, "latency_ms": 197.34, "timestamp": "2026-02-16T11:45:01.851411", "data": null}]}
+{"timestamp": "2026-02-16T11:50:02.722017", "results": [{"name": "homepage", "status": "up", "status_code": 200, "latency_ms": 312.12, "timestamp": "2026-02-16T11:50:02.719165", "data": null}]}
+{"timestamp": "2026-02-16T11:55:01.728752", "results": [{"name": "homepage", "status": "up", "status_code": 200, "latency_ms": 213.2, "timestamp": "2026-02-16T11:55:01.727177", "data": null}]}
