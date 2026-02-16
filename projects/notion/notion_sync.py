@@ -158,8 +158,8 @@ class NotionSync:
                         "callout": {
                             "rich_text": [
                                 {"text": {"content": f"{agent_name}: "}},
-                                {"text": {"content": f"{status}"}},
-                                {"text": {"content": f" - {task}" if task else "")}}
+                                {"text": {"content": status}},
+                                {"text": {"content": f" - {task}" if task else ""}}
                             ],
                             "icon": {"emoji": "🤖"}
                         }
