@@ -1,6 +1,6 @@
 # Current Tasks
 
-## ✅ SKRmaxing — SUBMITTED! (Waiting Review)
+## 🚨 URGENT - SKRmaxing Launch
 - [x] **Final app build** from ClawSeeker repo ✓
 - [x] **3 screenshots** for dApp Store ✓
 - [x] **Feature graphic** ✓
@@ -15,6 +15,18 @@
 - [ ] Crypto Memo Tool — needs Birdeye API key for full on-chain data
 - [ ] Price alerts system — pending decision from Thomas
 - [ ] Context Retention System — Python deps incomplete, needs resume
+
+## Website Projects (New!)
+- [ ] **thomasbahamas.com** — Personal landing page
+  - Contact form with verification (anti-spam)
+  - Link aggregator: SolanaFloor, Solana Weekly, all content
+  - Professional bio/intro
+  - Link to LifeOS portal
+  - Deploy to production domain
+- [ ] **life.thomasbahamas.com** — LifeOS PWA (custom domain)
+  - Migrate from Cloudflare tunnel to production
+  - Full OAuth integration (future)
+  - SSL certificate setup
 
 ## Under Consideration
 - [ ] SKRmaxi Treasury Fee — add small % fee on purchases (pending design)
