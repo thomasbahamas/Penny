@@ -159,3 +159,16 @@ def send_telegram_message(text):
 # Send the briefing
 send_telegram_message(output.replace('=', '━').replace('📌', '▸'))
 print("\n📤 Briefing sent to Telegram!")
+
+# Sync to Notion
+print("\n🔄 Syncing to Notion...")
+try:
+    sys.path.insert(0, '/root/clawd/projects/notion')
+    from notion_sync import sync_brief
+    brief_summary = output[:1500]  # First 1500 chars
+    if sync_brief(brief_summary):
+        print("✅ Brief synced to Notion Mission Control")
+    else:
+        print("⚠️ Notion sync failed (will retry next run)")
+except Exception as e:
+    print(f"⚠️ Notion sync error: {e}")
