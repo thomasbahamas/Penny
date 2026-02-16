@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Thomas Life OS</title>
+  <link rel="manifest" href="/manifest.json">
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="app">
+    <!-- Header -->
+    <header class="header">
+      <div class="logo">🪙 LifeOS</div>
+      <div class="time" id="clock">--:--</div>
+      <div class="status">
+        <span id="sync-status">●</span>
+        <button onclick="requestNotificationPermission()">🔔</button>
+      </div>
+    </header>
+
+    <!-- Main Grid -->
+    <main class="dashboard">
+      
+      <!-- Family Status Card -->
+      <section class="card family-card">
+        <h2>👨‍👩‍👧‍👦 Family Today</h2>
+        <div id="family-status">
+          <div class="family-member">
+            <span class="name">Kids</span>
+            <span class="status" id="kids-status">Loading...</span>
+          </div>
+          <div class="family-member">
+            <span class="name">Wife</span>
+            <span class="status" id="wife-status">Loading...</span>
+          </div>
+          <div class="conflicts" id="conflicts">
+            <!-- Conflicts show here -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Unified Calendar -->
+      <section class="card calendar-card">
+        <h2>📅 Today</h2>
+        <div id="calendar-widget">
+          <div class="loading">Syncing calendars...</div>
+        </div>
+        <button onclick="refreshCalendars()">↻ Refresh</button>
+      </section>
+
+      <!-- Agent Command Center -->
+      <section class="card agent-card">
+        <h2>🤖 Agents</h2>
+        <div id="agent-grid" class="agent-grid">
+          <!-- Agents populate here -->
+        </div>
+        <div class="agent-actions">
+          <button onclick="spawnAgent('FED')">🌍 FED</button>
+          <button onclick="spawnAgent('SCALP')">⚡ SCALP</button>
+          <button onclick="spawnAgent('NOVA')">🎬 NOVA</button>
+          <button onclick="spawnAgent('SCRIBE')">✍️ SCRIBE</button>
+        </div>
+      </section>
+
+      <!-- Smart Inbox -->
+      <section class="card inbox-card">
+        <h2>📧 Inbox <span id="unread-count"></span></h2>
+        <div id="inbox-list">
+          <div class="loading">Scanning emails...</div>
+        </div>
+      </section>
+
+      <!-- Finance Snapshot -->
+      <section class="card finance-card">
+        <h2>💰 Finance</h2>
+        <div id="finance-widget">
+          <div class="metric">
+            <span class="label">Portfolio</span>
+            <span class="value" id="portfolio-value">--</span>
+          </div>
+          <div class="metric">
+            <span class="label">BONK %</span>
+            <span class="value" id="bonk-percent">--</span>
+          </div>
+          <div class="alerts" id="finance-alerts">
+            <!-- Alerts populate here -->
+          </div>
+        </div>
+      </section>
+
+      <!-- Shared Todos -->
+      <section class="card todo-card">
+        <h2>✅ Shared with Wife</h2>
+        <div id="todo-list">
+          <div class="loading">Syncing with Notion...</div>
+        </div>
+        <div class="add-todo">
+          <input type="text" id="new-todo" placeholder="Add shared task...">
+          <button onclick="addTodo()">+</button>
+        </div>
+      </section>
+
+      <!-- Quick Capture -->
+      <section class="card capture-card">
+        <h2>🎤 Quick Capture</h2>
+        <button class="voice-btn" onclick="startVoiceCapture()">
+          🎙️ Hold to Speak
+        </button>
+        <div id="captured-items"></div>
+      </section>
+
+    </main>
+
+    <!-- Bottom Nav -->
+    <nav class="bottom-nav">
+      <button onclick="showView('dashboard')" class="active">🏠</button>
+      <button onclick="showView('agents')">🤖</button>
+      <button onclick="showView('family')">👨‍👩‍👧‍👦</button>
+      <button onclick="showView('settings')">⚙️</button>
+    </nav>
+  </div>
+
+  <script src="/app.js"></script>
+  <script>
+    // Register service worker
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('/service-worker.js');
+    }
+  </script>
+</body>
+</html>
