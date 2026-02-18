@@ -290,29 +290,40 @@ button:active {
   right: 0;
   display: flex;
   justify-content: space-around;
-  padding: 12px;
+  padding: 8px 16px calc(8px + env(safe-area-inset-bottom));
   background: var(--card);
   border-top: 1px solid #222;
   z-index: 1000;
+  box-sizing: border-box;
 }
 
 .bottom-nav button {
-  font-size: 1.5rem;
-  padding: 15px 25px;
+  font-size: 1.6rem;
+  padding: 12px 24px;
+  margin: 0 4px;
   background: transparent;
   border: none;
   cursor: pointer;
-  min-width: 60px;
-  min-height: 50px;
+  min-width: 70px;
+  min-height: 60px;
   touch-action: manipulation;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: rgba(0, 240, 255, 0.3);
   user-select: none;
+  border-radius: 12px;
+  transition: all 0.15s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .bottom-nav button:active {
-  transform: scale(0.95);
+  transform: scale(0.92);
+  background: rgba(0, 240, 255, 0.15);
+}
+
+.bottom-nav button.active {
   background: rgba(0, 240, 255, 0.1);
-  border-radius: 12px;
+  color: var(--accent);
 }
 
 .bottom-nav button.active {
