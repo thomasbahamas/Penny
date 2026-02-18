@@ -1987,3 +1987,5 @@
 {"timestamp": "2026-02-18T09:55:01.807930", "results": [{"name": "homepage", "status": "up", "status_code": 200, "latency_ms": 220.79, "timestamp": "2026-02-18T09:55:01.805463", "data": null}]}
 {"timestamp": "2026-02-18T10:00:03.321978", "results": [{"name": "homepage", "status": "up", "status_code": 200, "latency_ms": 468.3, "timestamp": "2026-02-18T10:00:03.312698", "data": null}]}
 {"timestamp": "2026-02-18T10:05:01.440404", "results": [{"name": "homepage", "status": "up", "status_code": 200, "latency_ms": 205.05, "timestamp": "2026-02-18T10:05:01.438505", "data": null}]}
+{"timestamp": "2026-02-18T10:10:03.678512", "results": [{"name": "homepage", "status": "up", "status_code": 200, "latency_ms": 621.06, "timestamp": "2026-02-18T10:10:03.670959", "data": null}]}
+{"timestamp": "2026-02-18T10:15:02.707817", "results": [{"name": "homepage", "status": "up", "status_code": 200, "latency_ms": 297.69, "timestamp": "2026-02-18T10:15:02.704097", "data": null}]}
