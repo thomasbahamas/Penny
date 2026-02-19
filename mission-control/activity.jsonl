@@ -398,3 +398,9 @@
 {"timestamp": "2026-02-19T15:00:49.124321", "type": "trading_signal", "symbol": "ORE", "signal": "\u26aa NEUTRAL / WAIT", "strength": 0, "price": 78.27367102419618}
 {"timestamp": "2026-02-19T15:00:49.124331", "type": "trading_signal", "symbol": "BTC", "signal": "\ud83d\udd34 SELL / AVOID", "strength": -2, "price": 66412.40973783981}
 {"timestamp": "2026-02-19T15:00:54.971591", "type": "solana_scan", "details": "Daily ecosystem scan completed"}
+{"timestamp": "2026-02-19T16:00:07.046778", "type": "alpha_hunter_v2", "hits": 18}
+{"timestamp": "2026-02-19T16:00:08.149981", "type": "trading_signal", "symbol": "BTC", "signal": "\ud83d\udfe1 BUY / ACCUMULATE", "strength": 1, "price": 66304.57153072467}
+{"timestamp": "2026-02-19T16:00:08.150076", "type": "trading_signal", "symbol": "SOL", "signal": "\ud83d\udfe1 BUY / ACCUMULATE", "strength": 1, "price": 80.44641226770152}
+{"timestamp": "2026-02-19T16:00:08.150100", "type": "trading_signal", "symbol": "BONK", "signal": "\ud83d\udfe1 BUY / ACCUMULATE", "strength": 1, "price": 6.080222696771939e-06}
+{"timestamp": "2026-02-19T16:00:08.150120", "type": "trading_signal", "symbol": "SKR", "signal": "\ud83d\udfe1 BUY / ACCUMULATE", "strength": 1, "price": 0.018306325445858578}
+{"timestamp": "2026-02-19T16:00:08.150134", "type": "trading_signal", "symbol": "ORE", "signal": "\u26aa NEUTRAL / WAIT", "strength": 0, "price": 78.3125673743317}
