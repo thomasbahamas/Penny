@@ -2334,3 +2334,6 @@
 {"timestamp": "2026-02-19T14:45:01.955101", "results": [{"name": "homepage", "status": "up", "status_code": 200, "latency_ms": 289.86, "timestamp": "2026-02-19T14:45:01.951044", "data": null}]}
 {"timestamp": "2026-02-19T14:50:03.026987", "results": [{"name": "homepage", "status": "up", "status_code": 200, "latency_ms": 553.32, "timestamp": "2026-02-19T14:50:03.015285", "data": null}]}
 {"timestamp": "2026-02-19T14:55:02.090950", "results": [{"name": "homepage", "status": "up", "status_code": 200, "latency_ms": 283.47, "timestamp": "2026-02-19T14:55:02.087194", "data": null}]}
+{"timestamp": "2026-02-19T15:00:03.481403", "results": [{"name": "homepage", "status": "up", "status_code": 200, "latency_ms": 633.93, "timestamp": "2026-02-19T15:00:03.470007", "data": null}]}
+{"timestamp": "2026-02-19T15:00:55.820121", "results": [{"name": "homepage", "status": "up", "status_code": 200, "latency_ms": 203.83, "timestamp": "2026-02-19T15:00:55.818897", "data": null}]}
+{"timestamp": "2026-02-19T15:05:01.526960", "results": [{"name": "homepage", "status": "up", "status_code": 200, "latency_ms": 189.58, "timestamp": "2026-02-19T15:05:01.525705", "data": null}]}
