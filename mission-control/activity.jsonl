@@ -415,3 +415,4 @@
 {"timestamp": "2026-02-20T04:00:08.093468", "type": "trading_signal", "symbol": "SOL", "signal": "\u26aa NEUTRAL / WAIT", "strength": 0, "price": 83.01259110224785}
 {"timestamp": "2026-02-20T04:00:08.093479", "type": "trading_signal", "symbol": "SKR", "signal": "\ud83d\udfe1 WEAK / HOLD", "strength": -1, "price": 0.02066571462081874}
 {"timestamp": "2026-02-20T04:00:08.093489", "type": "trading_signal", "symbol": "ORE", "signal": "\ud83d\udfe1 WEAK / HOLD", "strength": -1, "price": 77.19206053024958}
+{"timestamp": "2026-02-20T06:00:07.340168", "type": "alpha_hunter_v2", "hits": 11}
