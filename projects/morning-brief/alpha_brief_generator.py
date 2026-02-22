@@ -15,8 +15,11 @@ THRESHOLDS = {
 }
 
 WATCHLIST = [
-    "SOL", "BONK", "JUP", "ONDO", 
-    "HYPE", "WIF", "POPCAT"
+    # Crypto
+    "SOL", "ZEC", "HYPE", "ORE", "MET", "SKR", "MONAD",
+    "TGB", "JUP", "BONK", "HOSICO",
+    # Stocks (for dips)
+    "GOLD", "GOOGL", "TSLA", "RIVN"
 ]
 
 AIRDROPS_TO_MONITOR = [
