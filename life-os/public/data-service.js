@@ -31,6 +31,59 @@ class LifeOSData {
     };
   }
 
+  async loadWatchlist() {
+    // Fetch prices from CoinGecko
+    const coins = 'solana,jupiter-exchange,ondo-finance,zebec-protocol';
+    try {
+      const response = await fetch(`https://api.coingecko.com/api/v3/simple/price?ids=${coins}&vs_currencies=usd&include_24hr_change=true`, {
+        method: 'GET'
+      });
+      if (response.ok) {
+        const data = await response.json();
+        return this.parseSignals(data);
+      }
+    } catch (e) {
+      console.log('Price fetch failed, using cached');
+    }
+    return null;
+  }
+  
+  parseSignals(data) {
+    const signals = [];
+    const coinMap = {
+      'solana': 'SOL',
+      'jupiter-exchange': 'JUP',
+      'ondo-finance': 'ONDO',
+      'zebec-protocol': 'ZBC'
+    };
+    
+    for (const [coin, info] of Object.entries(data)) {
+      const change = info.usd_24h_change || 0;
+      let signal = 'HOLD';
+      let color = '#888';
+      
+      if (change < -15) {
+        signal = 'BUY DIP';
+        color = '#00ff88';
+      } else if (change > 25) {
+        signal = 'TAKE PROFIT';
+        color = '#ffcc00';
+      } else if (change < -5) {
+        signal = 'WATCH';
+        color = '#ffcc00';
+      }
+      
+      signals.push({
+        symbol: coinMap[coin] || coin,
+        price: info.usd,
+        change24h: change.toFixed(2),
+        signal: signal,
+        color: color
+      });
+    }
+    return signals;
+  }
+
   async loadFinance() {
     // Try to fetch from our stored reports
     try {

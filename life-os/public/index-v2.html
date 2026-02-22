@@ -133,28 +133,39 @@
         <!-- Portfolio Health -->
         <div class="card green" id="portfolio-card">
             <div class="card-title">Portfolio Health</div>
-            <div class="card-value" id="portfolio-status">Healthy</div>
+            <div class="card-value" id="portfolio-status">Ready</div>
             <div class="card-sub">
-                <span class="status-dot green"></span>BONK: 15% (target: 10%)
+                <span class="status-dot green"></span>BONK: SOLD ✅
             </div>
             <div class="card-sub" style="margin-top: 8px;">
-                Cash: $3,000 ready to deploy
+                <span class="status-dot yellow"></span>Cash: $3,000 to deploy
             </div>
         </div>
         
-        <!-- Today's Decision -->
-        <div class="card blue" id="decision-card">
-            <div class="card-title">Today's Decision</div>
-            <div class="card-value" style="font-size: 1.2rem;">
-                Trim BONK position?
-            </div>
-            <div class="card-sub">
-                Current: 30% of portfolio<br>
-                Target: 10-15%
-            </div>
-            <div style="display: flex; gap: 10px; margin-top: 12px;">
-                <button class="decision-btn yes" onclick="decision('yes')">YES - Execute</button>
-                <button class="decision-btn no" onclick="decision('no')">NO - Skip</button>
+        <!-- Watchlist Analysis -->
+        <div class="card blue" id="watchlist-card">
+            <div class="card-title">Watchlist Signals</div>
+            <div style="margin-top: 12px; font-size: 0.85rem;" id="watchlist-data">
+                <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #222;">
+                    <span>SOL</span>
+                    <span style="color: #888;">Loading...</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #222;">
+                    <span>HYPE</span>
+                    <span style="color: #888;">Loading...</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #222;">
+                    <span>JUP</span>
+                    <span style="color: #888;">Loading...</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #222;">
+                    <span>ONDO</span>
+                    <span style="color: #888;">Loading...</span>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding: 8px 0;">
+                    <span>BONK</span>
+                    <span style="color: #00ff88;">WATCH - Dip entry?</span>
+                </div>
             </div>
         </div>
         
@@ -201,7 +212,10 @@
         </div>
     </div>
     
+    <script src="/data-service.js"></script>
     <script>
+        const lifeOSData = new LifeOSData();
+        
         function updateClock() {
             const now = new Date();
             const hours = now.getHours();
@@ -214,18 +228,23 @@
             
             if (totalMinutes >= hardStopMinutes && totalMinutes < 9 * 60) {
                 document.getElementById('hard-stop-card').style.display = 'block';
-                document.getElementById('decision-card').style.display = 'none';
+                document.getElementById('watchlist-card').style.display = 'none';
                 document.getElementById('priority-card').style.display = 'none';
                 document.getElementById('current-mode').textContent = 'Family Mode';
                 document.getElementById('current-mode').style.color = '#ff4444';
             }
         }
         
-        function decision(choice) {
-            if (choice === 'yes') {
-                alert('Executing: Trim BONK position\n\nSelling $1,500 worth...');
-            } else {
-                alert('Skipped. Review again tomorrow.');
+        async function loadWatchlist() {
+            const signals = await lifeOSData.loadWatchlist();
+            if (signals) {
+                const container = document.querySelector('#watchlist-card > div:nth-child(2)');
+                container.innerHTML = signals.map(s => `
+                    <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #222;">
+                        <span>${s.symbol}</span>
+                        <span style="color: ${s.color}; font-weight: 600;">${s.signal}</span>
+                    </div>
+                `).join('');
             }
         }
         
@@ -236,6 +255,9 @@
         // Date
         document.getElementById('today-date').textContent = 
             new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        
+        // Load watchlist on page load
+        loadWatchlist();
     </script>
 </body>
 </html>
