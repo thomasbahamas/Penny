@@ -4,6 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>LifeOS | Thomas</title>
+    <script>
+        // Auth check - redirect to login if not authenticated
+        if (!localStorage.getItem('lifeos_auth') && !sessionStorage.getItem('lifeos_auth')) {
+            window.location.href = '/login.html';
+        }
+        // Check if auth is expired (30 days for localStorage)
+        const authTime = localStorage.getItem('lifeos_auth_time');
+        if (authTime && (Date.now() - parseInt(authTime)) > (30 * 24 * 60 * 60 * 1000)) {
+            localStorage.removeItem('lifeos_auth');
+            localStorage.removeItem('lifeos_auth_time');
+            window.location.href = '/login.html';
+        }
+    </script>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
