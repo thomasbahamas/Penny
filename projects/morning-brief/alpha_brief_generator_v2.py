@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 """
-THOMAS ALPHA BRIEF GENERATOR v2.0 — WITH OPTIMISM
+THOMAS ALPHA BRIEF GENERATOR v2.0 — WITH OPTIMISM + CONTENT IDEAS
 Runs at 5:30am PST daily
-Actionable signals + momentum + opportunity sizing
+Actionable signals + momentum + opportunity sizing + video topics
 """
 
 import json
@@ -114,6 +114,31 @@ Verdict: [WORTH IT / SKIP / RESEARCH]
 
 """
 
+def generate_video_topics():
+    return """🎬 VIDEO TOPIC IDEAS (Brainstorm 2)
+
+**Topic 1: [Narrative/Price Action Story]**
+• Asset: [Biggest mover overnight]
+• Hook: [Why is this moving?]
+• Angle: [Your contrarian or confirming take]
+• Urgency: [24-48hr freshness window?]
+
+**Topic 2: [Protocol/Project Development]**
+• Project: [New feature/launch/partnership]
+• Hook: [What changed?]
+• Angle: [Why this matters for Solana ecosystem]
+• Evergreen?: [Will this matter in 2 weeks?]
+
+💡 Brainstorm triggers:
+• Any asset moved >20%? → "Why [X] is the new [Y]"
+• New ATH or major low? → "The [Asset] bottom is in/out"
+• Protocol announcement? → "[Project] just changed everything"
+• Narrative shift? → "The [narrative] rotation is here"
+
+Script outline ready? → Reply and I'll draft it.
+
+"""
+
 def generate_daily_brief():
     today = datetime.now()
     day_name = today.strftime("%A")
@@ -128,16 +153,13 @@ def generate_daily_brief():
     brief += generate_opportunity_sizing()
     brief += generate_portfolio_signals()
     brief += generate_airdrops()
+    brief += generate_video_topics()
     
     brief += """
 📅 FAMILY/STAFF TODAY
 • Kids schedule: [from calendar]
 • Wife schedule: [from calendar]
 • Your focus window: 5:30-6:40am
-
-🎬 CONTENT OPPORTUNITY
-• [If narrative developing overnight]
-• [If trending topic emerging]
 
 ⏰ HARD STOP: 6:40am → Family mode
 
