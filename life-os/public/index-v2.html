@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>LifeOS | Thomas</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #0a0a0f;
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .logo { font-size: 1.5rem; font-weight: 700; color: #00f0ff; }
+        .time { font-size: 2rem; font-weight: 200; }
+        .mode { font-size: 0.8rem; color: #00ff88; text-transform: uppercase; }
+        
+        .grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+        
+        .card {
+            background: #151520;
+            border-radius: 16px;
+            padding: 24px;
+            border-left: 4px solid #333;
+        }
+        
+        .card.green { border-left-color: #00ff88; }
+        .card.yellow { border-left-color: #ffcc00; }
+        .card.red { border-left-color: #ff4444; }
+        .card.blue { border-left-color: #00f0ff; }
+        
+        .card-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: #888;
+            margin-bottom: 8px;
+        }
+        
+        .card-value {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+        
+        .card-sub {
+            font-size: 0.9rem;
+            color: #aaa;
+        }
+        
+        .decision-btn {
+            background: #00f0ff;
+            color: #000;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin-top: 12px;
+            cursor: pointer;
+            width: 100%;
+        }
+        
+        .decision-btn.yes { background: #00ff88; }
+        .decision-btn.no { background: #ff4444; color: #fff; }
+        
+        .family-list {
+            list-style: none;
+            margin-top: 8px;
+        }
+        
+        .family-list li {
+            padding: 8px 0;
+            border-bottom: 1px solid #222;
+            display: flex;
+            justify-content: space-between;
+        }
+        
+        .status-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-right: 8px;
+        }
+        
+        .status-dot.green { background: #00ff88; }
+        .status-dot.yellow { background: #ffcc00; }
+        .status-dot.red { background: #ff4444; }
+        
+        @media (min-width: 768px) {
+            .grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div>
+            <div class="logo">LifeOS</div>
+            <div class="mode" id="current-mode">Focus Mode</div>
+        </div>
+        <div class="time" id="clock">5:30</div>
+    </div>
+    
+    <div class="grid">
+        <!-- Portfolio Health -->
+        <div class="card green" id="portfolio-card">
+            <div class="card-title">Portfolio Health</div>
+            <div class="card-value" id="portfolio-status">Healthy</div>
+            <div class="card-sub">
+                <span class="status-dot green"></span>BONK: 15% (target: 10%)
+            </div>
+            <div class="card-sub" style="margin-top: 8px;">
+                Cash: $3,000 ready to deploy
+            </div>
+        </div>
+        
+        <!-- Today's Decision -->
+        <div class="card blue" id="decision-card">
+            <div class="card-title">Today's Decision</div>
+            <div class="card-value" style="font-size: 1.2rem;">
+                Trim BONK position?
+            </div>
+            <div class="card-sub">
+                Current: 30% of portfolio<br>
+                Target: 10-15%
+            </div>
+            <div style="display: flex; gap: 10px; margin-top: 12px;">
+                <button class="decision-btn yes" onclick="decision('yes')">YES - Execute</button>
+                <button class="decision-btn no" onclick="decision('no')">NO - Skip</button>
+            </div>
+        </div>
+        
+        <!-- Family Schedule -->
+        <div class="card yellow">
+            <div class="card-title">Today | <span id="today-date">Feb 22</span></div>
+            <ul class="family-list">
+                <li>
+                    <span>Kids leave</span>
+                    <span>6:40am</span>
+                </li>
+                <li>
+                    <span>Focus window ends</span>
+                    <span style="color: #ff4444; font-weight: 600;">6:40am</span>
+                </li>
+                <li>
+                    <span>Return to work</span>
+                    <span>9:00am</span>
+                </li>
+            </ul>
+        </div>
+        
+        <!-- Hard Stop -->
+        <div class="card red" id="hard-stop-card" style="display: none;">
+            <div class="card-title">⚠️ HARD STOP</div>
+            <div class="card-value">Family Mode</div>
+            <div class="card-sub">
+                Work ends now.<br>
+                No more trading decisions.<br>
+                See you at 9am.
+            </div>
+        </div>
+        
+        <!-- Next Priority -->
+        <div class="card" id="priority-card">
+            <div class="card-title">Next Priority</div>
+            <div class="card-value" style="font-size: 1.2rem;">
+                Record RWA Video
+            </div>
+            <div class="card-sub">
+                Script ready. Narrative fading.<br>
+                Time window: 48 hours.
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes().toString().padStart(2, '0');
+            document.getElementById('clock').textContent = `${hours}:${minutes}`;
+            
+            // Hard stop enforcement
+            const totalMinutes = hours * 60 + now.getMinutes();
+            const hardStopMinutes = 6 * 60 + 40; // 6:40am
+            
+            if (totalMinutes >= hardStopMinutes && totalMinutes < 9 * 60) {
+                document.getElementById('hard-stop-card').style.display = 'block';
+                document.getElementById('decision-card').style.display = 'none';
+                document.getElementById('priority-card').style.display = 'none';
+                document.getElementById('current-mode').textContent = 'Family Mode';
+                document.getElementById('current-mode').style.color = '#ff4444';
+            }
+        }
+        
+        function decision(choice) {
+            if (choice === 'yes') {
+                alert('Executing: Trim BONK position\n\nSelling $1,500 worth...');
+            } else {
+                alert('Skipped. Review again tomorrow.');
+            }
+        }
+        
+        // Update every minute
+        updateClock();
+        setInterval(updateClock, 60000);
+        
+        // Date
+        document.getElementById('today-date').textContent = 
+            new Date().toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    </script>
+</body>
+</html>
