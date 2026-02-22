@@ -474,3 +474,4 @@
 {"timestamp": "2026-02-22T04:00:09.283098", "type": "trading_signal", "symbol": "BTC", "signal": "\u26aa NEUTRAL / WAIT", "strength": 0, "price": 68001.22741203569}
 {"timestamp": "2026-02-22T04:00:09.283110", "type": "trading_signal", "symbol": "SOL", "signal": "\ud83d\udfe1 WEAK / HOLD", "strength": -1, "price": 85.01119183968792}
 {"timestamp": "2026-02-22T06:00:07.011497", "type": "alpha_hunter_v2", "hits": 12}
+{"timestamp": "2026-02-22T08:00:06.737278", "type": "alpha_hunter_v2", "hits": 12}
